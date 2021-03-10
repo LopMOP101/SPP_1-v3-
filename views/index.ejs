@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+	<link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet">
+  </head>
+
+  <body>
+  <header>
+	<div class="overlay">
+<h1>Музыка</h1>
+<h3>Список ваших предпочтений</h3>
+<p> Создайте список того, что вам нравиться</p>
+	<br>
+	</div>
+</header>
+
+<input type="checkbox" id="hd-2" class="hide"/>
+<label for="hd-2" >Сортировка</label>
+  <div>
+      <form action="/sortTask" method="post">
+          <div class="dropdown">
+              <button class="dropbtn">Метод сортировки</button>
+              <div class="dropdown-content">
+                  <a href="#">По названию песни</a>
+                  <a href="#">По названию группы</a>
+
+              </div>
+          </div>
+          <br>
+          <br>
+          <input type="submit" id="btn" value="Отсортировать" />
+      </form>
+  </div>
+
+  <input type="checkbox" id="hd-1" class="hide"/>
+  <label for="hd-1" >Добавить песню</label>
+<div>
+	<br>
+    <form action="/addTask" method="post">
+      <div>
+          <span>Имя группы</span>
+		  <br>
+        <input type="text" name="group" class="form-control">
+      </div>
+        <div>
+          <span>Название песни</span>
+        </div>
+        <input type="text" name="songname" class="form-control">
+		    <p>Загрузить песню</p>
+        <div>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+        <label>Файл</label><br>
+        <input type="file" name="filedata" /><br>
+		<input type="submit" id="btn" value="Отправить" />
+        </form>
+        </div>
+	
+    </form>
+</div>
+
+      <ul>
+          <% for(var i = 0; i < tasks.length; i++) {%>
+              <li class="box">
+                  <p>Группа: <%= tasks[i].group %></p>
+                  <p>Название песни: <%= tasks[i].songname %></p>
+                  <div>
+                      <form action=<%="/deleteTask/" + tasks[i].id %> method="post">
+                          <input type="submit" value="Удалить" /><br>
+                      </form><br>
+                      <form action=<%="/editTask/" + tasks[i].id %> method="post">
+                          <input type="submit"  value="Изменить" /><br>
+                      </form>
+                  </div>
+              </li>
+          <%} %>
+      </ul>
+
+  </body>
+  <p class="footer">2021 БГУИР</p>
+</html>
